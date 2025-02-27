@@ -1,0 +1,16 @@
+C:\Users\cre\Desktop\0213\ShadowRunner\ShadowRunner\src\Anim\Animation.cpp;C:\Users\cre\Desktop\0213\ShadowRunner\ShadowRunner\ShadowRunner\x64\Release\Animation.obj
+C:\Users\cre\Desktop\0213\ShadowRunner\ShadowRunner\src\Camera\Camera.cpp;C:\Users\cre\Desktop\0213\ShadowRunner\ShadowRunner\ShadowRunner\x64\Release\Camera.obj
+C:\Users\cre\Desktop\0213\ShadowRunner\ShadowRunner\src\GameMain.cpp;C:\Users\cre\Desktop\0213\ShadowRunner\ShadowRunner\ShadowRunner\x64\Release\GameMain.obj
+C:\Users\cre\Desktop\0213\ShadowRunner\ShadowRunner\src\Gimmick\Base\GimmickBase.cpp;C:\Users\cre\Desktop\0213\ShadowRunner\ShadowRunner\ShadowRunner\x64\Release\GimmickBase.obj
+C:\Users\cre\Desktop\0213\ShadowRunner\ShadowRunner\src\Gimmick\JumpBoard.cpp;C:\Users\cre\Desktop\0213\ShadowRunner\ShadowRunner\ShadowRunner\x64\Release\JumpBoard.obj
+C:\Users\cre\Desktop\0213\ShadowRunner\ShadowRunner\src\Gimmick\WireActions.cpp;C:\Users\cre\Desktop\0213\ShadowRunner\ShadowRunner\ShadowRunner\x64\Release\WireActions.obj
+C:\Users\cre\Desktop\0213\ShadowRunner\ShadowRunner\src\Option\Option.cpp;C:\Users\cre\Desktop\0213\ShadowRunner\ShadowRunner\ShadowRunner\x64\Release\Option.obj
+C:\Users\cre\Desktop\0213\ShadowRunner\ShadowRunner\src\Player\Player.cpp;C:\Users\cre\Desktop\0213\ShadowRunner\ShadowRunner\ShadowRunner\x64\Release\Player.obj
+C:\Users\cre\Desktop\0213\ShadowRunner\ShadowRunner\src\Player\PlayerUI.cpp;C:\Users\cre\Desktop\0213\ShadowRunner\ShadowRunner\ShadowRunner\x64\Release\PlayerUI.obj
+C:\Users\cre\Desktop\0213\ShadowRunner\ShadowRunner\src\Scene\End.cpp;C:\Users\cre\Desktop\0213\ShadowRunner\ShadowRunner\ShadowRunner\x64\Release\End.obj
+C:\Users\cre\Desktop\0213\ShadowRunner\ShadowRunner\src\Scene\Game.cpp;C:\Users\cre\Desktop\0213\ShadowRunner\ShadowRunner\ShadowRunner\x64\Release\Game.obj
+C:\Users\cre\Desktop\0213\ShadowRunner\ShadowRunner\src\Scene\Title.cpp;C:\Users\cre\Desktop\0213\ShadowRunner\ShadowRunner\ShadowRunner\x64\Release\Title.obj
+C:\Users\cre\Desktop\0213\ShadowRunner\ShadowRunner\src\Stage\Stage.cpp;C:\Users\cre\Desktop\0213\ShadowRunner\ShadowRunner\ShadowRunner\x64\Release\Stage.obj
+C:\Users\cre\Desktop\0213\ShadowRunner\ShadowRunner\src\Vector2.cpp;C:\Users\cre\Desktop\0213\ShadowRunner\ShadowRunner\ShadowRunner\x64\Release\Vector2.obj
+C:\Users\cre\Desktop\0213\ShadowRunner\ShadowRunner\src\Vector3.cpp;C:\Users\cre\Desktop\0213\ShadowRunner\ShadowRunner\ShadowRunner\x64\Release\Vector3.obj
+C:\Users\cre\Desktop\0213\ShadowRunner\ShadowRunner\src\WinMain.cpp;C:\Users\cre\Desktop\0213\ShadowRunner\ShadowRunner\ShadowRunner\x64\Release\WinMain.obj
