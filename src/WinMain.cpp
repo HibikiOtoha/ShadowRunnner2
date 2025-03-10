@@ -21,8 +21,8 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine
 
 	SetOutApplicationLogValidFlag(FALSE);	//Logを表示しない
 
-	ChangeWindowMode(TRUE);		//ウィンドウモード
-	//ChangeWindowMode(FALSE);		//全画面モード
+	//ChangeWindowMode(TRUE);		//ウィンドウモード
+	ChangeWindowMode(FALSE);		//全画面モード
 
 	SetMainWindowText("SHADOW RUNNER");
 	SetBackgroundColor(0, 0, 0);	//後ろの色を黒

@@ -153,7 +153,7 @@ void Option::Draw()
 
 		SetFontSize(32);
 		//ä¥ìxê›íË
-		DrawString(SCREEN_W / 20 * 4, SCREEN_H / 20 * 13, "âπó ", White);
+		DrawString(SCREEN_W / 20 * 4, SCREEN_H / 20 * 13, "ä¥ìx", White);
 		DrawLine(SCREEN_W / 20 * 10.5, SCREEN_H / 20 * 13.5, SCREEN_W / 20 * 15.2, SCREEN_H / 20 * 13.5, White, 8);
 		DrawBox(sens_x, SCREEN_H / 20 * 13, sens_x + SCREEN_H / 60, SCREEN_H / 20 * 14, Red, TRUE);
 		SetFontSize(16);

@@ -1,2 +1,24 @@
-﻿  WinMain.cpp
-  ShadowRunner.vcxproj -> C:\Users\cre\Desktop\0214\ShadowRunner\x64\Debug\ShadowRunner.exe
+﻿  Option.cpp
+C:\Users\cre\Desktop\Matsuo\ShadowRunnner2\src\Option\Option.cpp(25,31): warning C4244: '=': 'double' から 'int' への変換です。データが失われる可能性があります。
+C:\Users\cre\Desktop\Matsuo\ShadowRunnner2\src\Option\Option.cpp(26,32): warning C4244: '=': 'double' から 'int' への変換です。データが失われる可能性があります。
+C:\Users\cre\Desktop\Matsuo\ShadowRunnner2\src\Option\Option.cpp(82,28): warning C4244: '=': 'double' から 'int' への変換です。データが失われる可能性があります。
+C:\Users\cre\Desktop\Matsuo\ShadowRunnner2\src\Option\Option.cpp(86,28): warning C4244: '=': 'double' から 'int' への変換です。データが失われる可能性があります。
+C:\Users\cre\Desktop\Matsuo\ShadowRunnner2\src\Option\Option.cpp(89,48): warning C4244: '=': 'double' から 'int' への変換です。データが失われる可能性があります。
+C:\Users\cre\Desktop\Matsuo\ShadowRunnner2\src\Option\Option.cpp(102,29): warning C4244: '=': 'double' から 'int' への変換です。データが失われる可能性があります。
+C:\Users\cre\Desktop\Matsuo\ShadowRunnner2\src\Option\Option.cpp(106,29): warning C4244: '=': 'double' から 'int' への変換です。データが失われる可能性があります。
+C:\Users\cre\Desktop\Matsuo\ShadowRunnner2\src\Option\Option.cpp(110,56): warning C4244: '=': 'double' から 'int' への変換です。データが失われる可能性があります。
+C:\Users\cre\Desktop\Matsuo\ShadowRunnner2\src\Option\Option.cpp(138,47): warning C4244: '引数': 'double' から 'int' への変換です。データが失われる可能性があります。
+C:\Users\cre\Desktop\Matsuo\ShadowRunnner2\src\Option\Option.cpp(139,51): warning C4244: '引数': 'double' から 'int' への変換です。データが失われる可能性があります。
+C:\Users\cre\Desktop\Matsuo\ShadowRunnner2\src\Option\Option.cpp(139,29): warning C4244: '引数': 'double' から 'int' への変換です。データが失われる可能性があります。
+C:\Users\cre\Desktop\Matsuo\ShadowRunnner2\src\Option\Option.cpp(142,47): warning C4244: '引数': 'double' から 'int' への変換です。データが失われる可能性があります。
+C:\Users\cre\Desktop\Matsuo\ShadowRunnner2\src\Option\Option.cpp(143,51): warning C4244: '引数': 'double' から 'int' への変換です。データが失われる可能性があります。
+C:\Users\cre\Desktop\Matsuo\ShadowRunnner2\src\Option\Option.cpp(143,29): warning C4244: '引数': 'double' から 'int' への変換です。データが失われる可能性があります。
+C:\Users\cre\Desktop\Matsuo\ShadowRunnner2\src\Option\Option.cpp(149,92): warning C4244: '引数': 'double' から 'int' への変換です。データが失われる可能性があります。
+C:\Users\cre\Desktop\Matsuo\ShadowRunnner2\src\Option\Option.cpp(149,70): warning C4244: '引数': 'double' から 'int' への変換です。データが失われる可能性があります。
+C:\Users\cre\Desktop\Matsuo\ShadowRunnner2\src\Option\Option.cpp(149,48): warning C4244: '引数': 'double' から 'int' への変換です。データが失われる可能性があります。
+C:\Users\cre\Desktop\Matsuo\ShadowRunnner2\src\Option\Option.cpp(149,26): warning C4244: '引数': 'double' から 'int' への変換です。データが失われる可能性があります。
+C:\Users\cre\Desktop\Matsuo\ShadowRunnner2\src\Option\Option.cpp(157,92): warning C4244: '引数': 'double' から 'int' への変換です。データが失われる可能性があります。
+C:\Users\cre\Desktop\Matsuo\ShadowRunnner2\src\Option\Option.cpp(157,70): warning C4244: '引数': 'double' から 'int' への変換です。データが失われる可能性があります。
+C:\Users\cre\Desktop\Matsuo\ShadowRunnner2\src\Option\Option.cpp(157,48): warning C4244: '引数': 'double' から 'int' への変換です。データが失われる可能性があります。
+C:\Users\cre\Desktop\Matsuo\ShadowRunnner2\src\Option\Option.cpp(157,26): warning C4244: '引数': 'double' から 'int' への変換です。データが失われる可能性があります。
+  ShadowRunner.vcxproj -> C:\Users\cre\Desktop\Matsuo\ShadowRunnner2\x64\Debug\ShadowRunner.exe
