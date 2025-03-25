@@ -10,7 +10,8 @@ public:
 	Stage();
 
 	//モデルを入れる変数
-	int m_model_;	//モデル
+	int ground_model_;	//床モデル
+	int wall_model_;	//壁モデル
 	int sky_model;		//スカイボックスのモデル
 
 	Vector3 m_pos_;   //ステージモデルの位置
@@ -27,7 +28,7 @@ public:
 
 	void ReSet();
 
-	void Init(int model,int skymodel);
+	void Init(int ground_model, int wall_model, int skymodel);
 	void Update(Vector3 player_pos, float* player_rot_y, Vector3* JumpBoard_mov, Vector3* WireAction_mov, Vector3 cam_rot, bool GimmickMov_Off);
 	void Render();
 	void Exit();

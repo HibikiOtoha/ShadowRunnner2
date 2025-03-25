@@ -35,8 +35,6 @@ private:
 	enum STATE {
 		STAND,		//立ち
 		RUN,		//走り
-		LEFT,		//左移動
-		RIGHT,		//右移動
 		BACK,		//後退
 		JUMP,		//ジャンプ
 		LEFTWALL,	//壁走り(左に壁がある時)
@@ -70,17 +68,15 @@ private:
 	//アニメーションの進行と切り替え(STATEの変化も含む)
 	void AnimUpdate();
 
-	//移動量の入れ物
-	Vector3 Enter_mov_ = { 0, 0, 0 };	//移動入力量(プレイヤー軸への回転前)
+	//移動方法
+	bool Stand, Run, Back;
 	//      移動入力総量　ジャンプ入力総量
 	Vector3 Enter_mov_all_, Jump_mov_ = { 0,0,0 };
 
 	//STATEの切り替え条件
-	bool SwitchStand() { return (Enter_mov_.x == 0.0f && Enter_mov_.z == 0.0f && OnGround) ? true : false; }		//移動なしの時
-	bool SwitchRun() { return (Enter_mov_.z > 0.0f && OnGround) ? true : false; }									//前に移動する時
-	bool SwitchBack() { return(Enter_mov_.z < 0.0f && OnGround) ? true : false; }									//後ろに移動する時
-	bool SwitchLeft() { return (Enter_mov_.x < 0.0f && Enter_mov_.z == 0.0f && OnGround) ? true : false; }				//左に移動する時
-	bool SwitchRight() { return(Enter_mov_.x > 0.0f && Enter_mov_.z == 0.0f && OnGround) ? true : false; }				//右に移動する時
+	bool SwitchStand() { return (Stand && OnGround) ? true : false; }		//移動なしの時
+	bool SwitchRun() { return (Run && OnGround) ? true : false; }									//後ろ以外の方向に移動する時
+	bool SwitchBack() { return(Back && OnGround) ? true : false; }									//後ろに移動する時
 	bool SwitchJump() { return(!OnGround && Jump_mov_.y > 0) ? true : false; }								//上に移動量ができ、地面にいるとき
 	bool SwitchLeftwall() { return (leftwallrun && !rightwallrun); }
 	bool SwitchRightwall() { return (rightwallrun && !leftwallrun); }
@@ -175,14 +171,11 @@ public:
 	Vector3 Gimmick_WireAction_mov_;
 
 	void Init(int model);
-	void Update(int stage_model, Vector3 cam_rot, int Sound);
+	void Update(int ground_model,int wall_model, Vector3 cam_rot, int Sound);
 	void Render();
 	void Exit();
 	
 	int ReturnCoolDown() { return blink_cooltime_; }
 
 	bool ReturnWallrun() { return (NowState == LEFTWALL || NowState == RIGHTWALL); }
-
-	bool ReturnRightWall() { return (NowState == RIGHT) ? true : false; }
-
 };

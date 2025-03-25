@@ -37,10 +37,11 @@ Stage::Stage()
 	ReSet();
 }
 
-void Stage::Init(int model, int skymodel)
+void Stage::Init(int ground_model,int wall_model, int skymodel)
 {
 	//ステージモデルデータの読み込み
-	m_model_ = model;
+	ground_model_ = ground_model;
+	wall_model_ = wall_model;
 	sky_model = skymodel;
 	for (int i = 0; i < GIMMICK_MAX; i++) {
 		wireactions[i].m_pos_ = Gimmick_pos[i];
@@ -51,7 +52,8 @@ void Stage::Init(int model, int skymodel)
 void Stage::Update(Vector3 player_pos,float* player_rot_y, Vector3* JumpBoard_mov,Vector3* WireAction_mov,Vector3 cam_rot,bool GimmickMov_Off)
 {
 	//	当たり判定の情報の更新を行う
-	MV1RefreshCollInfo(m_model_);
+	MV1RefreshCollInfo(ground_model_);
+	MV1RefreshCollInfo(wall_model_);
 	this->player_pos = player_pos;
 
 	// 空モデルの向きの変更
@@ -116,19 +118,25 @@ void Stage::Render()
 	SetUseLighting(TRUE);
 
 	//モデルの描画
-	MV1SetPosition(m_model_, VGet(m_pos_.x, m_pos_.y, m_pos_.z));
+	MV1SetPosition(ground_model_, VGet(m_pos_.x, m_pos_.y, m_pos_.z));
 	//モデルのサイズを調整
-	MV1SetScale(m_model_, VGet(0.5f, 0.5f, 0.5f));
-	MV1DrawModel(m_model_);
+	MV1SetScale(ground_model_, VGet(0.5f, 0.5f, 0.5f));
+	MV1DrawModel(ground_model_);
+	//モデルの描画
+	MV1SetPosition(wall_model_, VGet(m_pos_.x, m_pos_.y, m_pos_.z));
+	//モデルのサイズを調整
+	MV1SetScale(wall_model_, VGet(0.5f, 0.5f, 0.5f));
+	MV1DrawModel(wall_model_);
 
 	DrawCube3D(goal_pos, (goal_pos + goal_size),
 		GetColor(255, 255, 255), GetColor(255, 255, 255), FALSE);
 
-	jumpboard.Render(player_pos);
+	//jumpboard.Render(player_pos);
 	for (int i = 0; i < GIMMICK_MAX; i++) {
 		wireactions[i].Render(player_pos);
 	}
-	MV1DrawFrame(m_model_, 1);
+	MV1DrawFrame(ground_model_, 1);
+	MV1DrawFrame(wall_model_, 1);
 }
 
 void Stage::Exit()

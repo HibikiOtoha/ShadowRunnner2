@@ -31,7 +31,7 @@ enum
 //今のシーン番号入れ
 int now_scene;
 
-int stage_model;
+int ground_model,wall_model;
 int sky_model;
 int player_model;
 
@@ -39,14 +39,14 @@ int Sound;
 
 void GameInit()
 {
-
-	stage_model = MV1LoadModel("data/Stage/blender/stage6.mv1");
+	ground_model = MV1LoadModel("data/Stage/blender/stage_ground.mv1");
+	wall_model = MV1LoadModel("data/Stage/blender/stage_wall.mv1");
 	sky_model = MV1LoadModel("data/SkyBox/sky.mv1");
 	player_model = MV1LoadModel("data/Player/Bot.mv1");
 	//player_model = MV1LoadModel("data/movie/model/MovieBot.mv1");
 	title.Init();
 
-	game.Init(stage_model, sky_model , player_model);
+	game.Init(ground_model, wall_model,sky_model , player_model);
 	ending.Init(player_model);
 
 	SetMouseDispFlag(FALSE);	//マウスカーソルの表示(全画面)
@@ -133,6 +133,7 @@ void GameExit()
 	option.Exit();
 
 	MV1DeleteModel(player_model);
-	MV1DeleteModel(stage_model);
+	MV1DeleteModel(ground_model);
+	MV1DeleteModel(wall_model);
 	MV1DeleteModel(sky_model);
 }

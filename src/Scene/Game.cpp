@@ -25,14 +25,15 @@ Game::Game()
 
 }
 
-void Game::Init(int M_Stage, int M_Sky, int M_Player)
+void Game::Init(int M_Ground,int M_Wall, int M_Sky, int M_Player)
 {
-	stage_model = M_Stage;
+	ground_model = M_Ground;
+	wall_model = M_Wall;
 	sky_model = M_Sky;
 	player_model = M_Player;
 
 	Scene_Change = false;
-	stage.Init(stage_model, sky_model);
+	stage.Init(ground_model,wall_model, sky_model);
 	player.Init(player_model);
 
 	for (int i = 0; i < IMAGE_MAX; i++) {
@@ -65,9 +66,9 @@ void Game::Update(bool tutrial_mode, int Sound,int Sens)
 
 	playerui.Update(player.ReturnCoolDown(), eyeOpen, ClearFlag, PlayMovie, tutrial_mode,player.time[1] == 1);
 	if (eyeOpen) {
-		player.Update(stage_model, camera.cam_rot_,Sound);
+		player.Update(ground_model,wall_model, camera.cam_rot_,Sound);
 	}
-	camera.Update(player.m_pos_, stage_model, Sens);
+	camera.Update(player.m_pos_, wall_model, Sens);
 
 
 

@@ -35,7 +35,7 @@ void PlayerUI::Update(float cooltime, bool& eyeOpen, bool ClearFlag[], int& Movi
 	eyeOpen = Eye_Open;
 	if (tutrial_mode) {
 		//チュートリアル動画再生
-		if (ClearFlag[Game::WALL] && MoviePlay == Game::WALL - 1) {
+		if (ClearFlag[Game::WALL] && MoviePlay == Game::WALL - 1 && CheckHitKey(KEY_INPUT_P)) {
 			SeekMovieToGraph(Wallrun_movie, 0);
 			Wallrun_movie = PlayMovie("data/movie/WallRun.mp4", 1, DX_MOVIEPLAYTYPE_NORMAL);
 			if (GetMovieStateToGraph(Wallrun_movie))
@@ -43,8 +43,9 @@ void PlayerUI::Update(float cooltime, bool& eyeOpen, bool ClearFlag[], int& Movi
 				MoviePlay++;
 				PauseMovieToGraph(Wallrun_movie);
 			}
+			
 		}
-		else if (ClearFlag[Game::WIRE] && MoviePlay == Game::WIRE - 1) {
+		else if (ClearFlag[Game::WIRE] && MoviePlay == Game::WIRE - 1 && CheckHitKey(KEY_INPUT_P)) {
 			SeekMovieToGraph(Wire_movie, 0);
 			Wire_movie = PlayMovie("data/movie/WireAction.ogv", 1, DX_MOVIEPLAYTYPE_NORMAL);
 			if (GetMovieStateToGraph(Wire_movie))
@@ -53,7 +54,7 @@ void PlayerUI::Update(float cooltime, bool& eyeOpen, bool ClearFlag[], int& Movi
 				PauseMovieToGraph(Wire_movie);
 			}
 		}
-		else if (ClearFlag[Game::WIRE2] && MoviePlay == Game::WIRE2 - 1) {
+		else if (ClearFlag[Game::WIRE2] && MoviePlay == Game::WIRE2 - 1 && CheckHitKey(KEY_INPUT_P)) {
 			SeekMovieToGraph(WireToWall_movie, 0);
 			WireToWall_movie = PlayMovie("data/movie/WireToWall.ogv", 1, DX_MOVIEPLAYTYPE_NORMAL);
 			if (GetMovieStateToGraph(WireToWall_movie))
@@ -63,30 +64,33 @@ void PlayerUI::Update(float cooltime, bool& eyeOpen, bool ClearFlag[], int& Movi
 			}
 		}
 	}
-	int judge = 0;
-	if (tutrial_eria)
+
+	//三分を切ったら真ん中にもう一度表示
+	if (minute >= 5 && time == 0)
 	{
-		judge++;
-	}
-	if (judge == 1)
-	{
-		minute = 5;
-		time = 0;
-		conma = 0;
 		fontsize = 128;
 		time_x = SCREEN_W / 7 * 2;
 		time_y = SCREEN_H / 2 - fontsize;
 		color= GetColor(200, 0, 0);
 	}
-
-	if (7 - minute <= 0 && 59 - time <= 0 /*&& 99 - (conma % 60) * (5 / 3) <= 10*/)
+	//時間切れ
+	if (7 - minute <= 0 && 59 - time <= 0)
 	{
 		timeOver = true;
 	}
 }
 
 void PlayerUI::Draw()
-{
+{	
+	SetDrawBlendMode(DX_BLENDMODE_ALPHA, 50);
+	DrawBox(SCREEN_W / 4 * 3, SCREEN_H / 8 * 7 - 8, SCREEN_W, SCREEN_H, GetColor(0, 0, 0), TRUE);
+	SetDrawBlendMode(DX_BLENDMODE_ALPHA, 255);
+	SetFontSize(16);
+	DrawString(SCREEN_W / 4 * 3 + 16, SCREEN_H / 8 * 7, "W A S D  移動",GetColor(255,255,255));
+	DrawString(SCREEN_W / 4 * 3 + 16, SCREEN_H / 8 * 7 + 22, "マウス移動　カメラ移動", GetColor(255, 255, 255));
+	DrawString(SCREEN_W / 4 * 3 + 16, SCREEN_H / 8 * 7 + 44, "右クリック  ワイヤーアクション", GetColor(255, 255, 255));
+	DrawString(SCREEN_W / 4 * 3 + 16, SCREEN_H / 8 * 7 + 66, "P    チュートリアルムービー再生", GetColor(255, 255, 255));
+
 	//最初の目を開く処理
 	Eyes_Draw();
 }
@@ -136,7 +140,7 @@ void PlayerUI::OpenEyes()
 		//開ける処理が終わった
 		Eye_Open = true;
 	}
-
+	//タイム計測
 	if (Eye_Open)
 	{
 		conma++;
@@ -174,6 +178,7 @@ void PlayerUI::Eyes_Draw()
 		OpenEye[1].x + SCREEN_W, OpenEye[1].y + (SCREEN_H / 2),
 		Black, TRUE);
 
+	//目を開けたら制限時間を表示
 	if (Eye_Open)
 	{
 		SetFontSize(fontsize);
@@ -185,9 +190,6 @@ void PlayerUI::Eyes_Draw()
 	SetDrawBlendMode(DX_BLENDMODE_ALPHA, blend);
 	DrawBox(0, 0, SCREEN_W, SCREEN_H, Black, true);
 	SetDrawBlendMode(DX_BLENDMODE_ALPHA, 255);
-
-	//ぼかしテスト(失敗)
-	//GraphFilter(screen_image, DX_GRAPH_FILTER_GAUSS, 8, 1400);
 
 }
 

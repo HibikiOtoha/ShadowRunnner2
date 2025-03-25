@@ -15,7 +15,8 @@ public:
 
 private:
 	//ステージモデル
-	int stage_model;
+	int ground_model;
+	int wall_model;
 	//スカイボックスモデル
 	int sky_model;
 	//プレイヤーモデル
@@ -55,7 +56,7 @@ public:
 	bool Game_Clear;
 
 
-	void Init(int M_Stage,int M_Sky,int M_Player);
+	void Init(int M_Ground, int M_Wall, int M_Sky,int M_Player);
 	void Update(bool tutrial_mode, int Sound,int Sens);
 	void Render();
 	void Exit();

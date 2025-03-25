@@ -27,6 +27,8 @@ Player::Player()
 	TouchWall = false;
 	autojump_mov = { 0,0,0 };
 	CanAutoJump = false;
+
+	Stand = Run = Back = false;
 }
 
 void Player::Init(int model)
@@ -36,8 +38,6 @@ void Player::Init(int model)
 	//アニメーションの読み込み
 	anim_model_[STAND] = MV1LoadModel("data/Player/Anim_idle.mv1");
 	anim_model_[RUN] = MV1LoadModel("data/Player/Anim_mainrun.mv1");
-	anim_model_[LEFT] = MV1LoadModel("data/Player/Anim_leftmove.mv1");
-	anim_model_[RIGHT] = MV1LoadModel("data/Player/Anim_rightmove.mv1");
 	anim_model_[BACK] = MV1LoadModel("data/Player/Anim_back.mv1");
 	anim_model_[JUMP] = MV1LoadModel("data/Player/Anim_jump.mv1");
 	anim_model_[LEFTWALL] = MV1LoadModel("data/Player/Anim_wallrun.mv1");
@@ -75,7 +75,7 @@ void Player::Init(int model)
 
 }
 
-void Player::Update(int stage_model, Vector3 cam_rot,int Sound)
+void Player::Update(int ground_model,int wall_model, Vector3 cam_rot,int Sound)
 {
 	if (time[0] == 0) {
 		PlaySoundMem(Tutrial_Handle, DX_PLAYTYPE_BACK);
@@ -120,7 +120,7 @@ void Player::Update(int stage_model, Vector3 cam_rot,int Sound)
 	}
 
 	//ジャンプと重力
-	Jump_mov_ += JumpMove(stage_model, cam_rot);
+	Jump_mov_ += JumpMove(ground_model, cam_rot);
 
 
 	//壁走りしているとき
@@ -145,13 +145,13 @@ void Player::Update(int stage_model, Vector3 cam_rot,int Sound)
 		Vector3 next_m_pos_ = m_pos_ + key_mov;
 
 		// 当たり判定をとり、一点に絞る
-		Vector3 HitPosition = ReturnHitPos(next_m_pos_, stage_model);
+		Vector3 HitPosition = ReturnHitPos(next_m_pos_, wall_model);
 
 		//------------------------------------------------------------------
 		// Capsule当たり判定
 		//------------------------------------------------------------------
 		MV1_COLL_RESULT_POLY_DIM hit_info = MV1CollCheck_Capsule(
-			stage_model,    // モデルのハンドル
+			wall_model,    // モデルのハンドル
 			-1,                    // コリジョンの情報を更新するフレームの番号
 			next_m_pos_ + Vector3{ 0,3,0 },
 			next_m_pos_ + Vector3{ 0,5,0 },
@@ -175,7 +175,7 @@ void Player::Update(int stage_model, Vector3 cam_rot,int Sound)
 			}
 
 			//壁ずり時の処理
-			Wall_Rubbing(loop_num, hit_info, &key_mov, next_m_pos_, HitPosition, stage_model);
+			Wall_Rubbing(loop_num, hit_info, &key_mov, next_m_pos_, HitPosition, wall_model);
 
 		}
 
@@ -245,29 +245,6 @@ void Player::Render()
 	//モデルのサイズを小さくする
 	MV1SetScale(m_model_, VGet(PLAYER_SIZE, PLAYER_SIZE, PLAYER_SIZE));
 	MV1DrawModel(m_model_);
-
-
-	//確認用
-	//---------------------------------------------------------------------------------------------------------------------------------------
-#ifdef DEBUG
-
-	DrawFormatString(0, 0, GetColor(255, 255, 255), "NowState : %d", NowState);
-
-	DrawFormatString(0, 16, GetColor(255, 255, 255), "player_mov_.x : %f,player_mov_.y : %f,player.z : %f", m_pos_.x, m_pos_.y, m_pos_.z);
-
-	DrawFormatString(0, 32, GetColor(255, 255, 255), "Jump_mov.y : %f", Jump_mov_.y);
-
-	DrawFormatString(0, 48, GetColor(255, 255, 255), "player_rot_.y : %f", m_rot_.y);
-
-	DrawFormatString(0, 64, GetColor(255, 255, 255), "CanAutoJump : %d", CanAutoJump);
-
-	for (int i = 0;i < STATE_MAX;i++)
-	{
-		DrawFormatString(0, 84 + (i * 16), GetColor(255, 255, 255), "anim_state(%d) : %2.0f", i, anim_rate_[i]);
-	}
-
-
-#endif
 }
 
 void Player::Exit()
@@ -304,20 +281,6 @@ void Player::AnimUpdate()
 		time[2]++;
 		StopSoundMem(Wallrun_Handle);
 		anim.AnimProgress(0.5f, &anim_total_[RUN], &anim_frame_[RUN], &anim_rate_[RUN], true, &anim_end);
-		AnimSwitch();
-		break;
-
-	case LEFT:
-		StopSoundMem(Run_Handle);
-		StopSoundMem(Wallrun_Handle);
-		anim.AnimProgress(1.0f, &anim_total_[LEFT], &anim_frame_[LEFT], &anim_rate_[LEFT], true, &anim_end);
-		AnimSwitch();
-		break;
-
-	case RIGHT:
-		StopSoundMem(Run_Handle);
-		StopSoundMem(Wallrun_Handle);
-		anim.AnimProgress(1.0f, &anim_total_[RIGHT], &anim_frame_[RIGHT], &anim_rate_[RIGHT], true, &anim_end);
 		AnimSwitch();
 		break;
 
@@ -404,16 +367,6 @@ void Player::AnimSwitch()
 		anim.AnimChanger(m_model_, anim_model_[BACK], &anim_attach_[BACK], &anim_rate_[BACK],
 			&anim_frame_[BACK], &NowState, BACK);
 	}
-	else if (SwitchLeft() && NowState != LEFT) {
-		anim_rate_[NowState] = 0.0f;
-		anim.AnimChanger(m_model_, anim_model_[LEFT], &anim_attach_[LEFT], &anim_rate_[LEFT],
-			&anim_frame_[LEFT], &NowState, LEFT);
-	}
-	else if (SwitchRight() && NowState != RIGHT) {
-		anim_rate_[NowState] = 0.0f;
-		anim.AnimChanger(m_model_, anim_model_[RIGHT], &anim_attach_[RIGHT], &anim_rate_[RIGHT],
-			&anim_frame_[RIGHT], &NowState, RIGHT);
-	}
 	else if (SwitchJump() && NowState != JUMP) {
 		anim_rate_[NowState] = 0.0f;
 		anim.AnimChanger(m_model_, anim_model_[JUMP], &anim_attach_[JUMP], &anim_rate_[JUMP],
@@ -423,15 +376,42 @@ void Player::AnimSwitch()
 
 Vector3 Player::EnterMove(Vector3 camera_rot)
 {
-	Enter_mov_ = { 0.0f,0.0f,0.0f };
 	Vector3 move;
 
 	//前進
 	if (CheckHitKey(KEY_INPUT_W) && !CheckHitKey(KEY_INPUT_S))
 	{
-		Enter_mov_.z = +RUN_SPEED;
-
+		Stand = false;
+		Back = false;
+		Run = true;
+		//前を向く
 		m_rot_.y = camera_rot.y;
+
+		//前進
+		move.x = RUN_SPEED * sinf(TO_RADIAN(m_rot_.y));
+		move.z = RUN_SPEED * cosf(TO_RADIAN(m_rot_.y));
+	}
+	//右
+	if (CheckHitKey(KEY_INPUT_D) && !CheckHitKey(KEY_INPUT_W))
+	{
+		Stand = false;
+		Back = false;
+		Run = true;
+		//右を向く
+		m_rot_.y = camera_rot.y + 90;
+
+		//前進
+		move.x = RUN_SPEED * sinf(TO_RADIAN(m_rot_.y));
+		move.z = RUN_SPEED * cosf(TO_RADIAN(m_rot_.y));
+	}
+	//左
+	if (CheckHitKey(KEY_INPUT_A) && !CheckHitKey(KEY_INPUT_W))
+	{
+		Stand = false;
+		Back = false;
+		Run = true;
+		//左を向く
+		m_rot_.y = camera_rot.y - 90;
 
 		//前進
 		move.x = RUN_SPEED * sinf(TO_RADIAN(m_rot_.y));
@@ -440,7 +420,9 @@ Vector3 Player::EnterMove(Vector3 camera_rot)
 	//後退
 	if (CheckHitKey(KEY_INPUT_S) && !CheckHitKey(KEY_INPUT_W))
 	{
-		Enter_mov_.z = -BACK_SPEED;
+		Stand = false;
+		Run = false;
+		Back = true;
 		if (NowState != LEFTWALL && NowState != RIGHTWALL) {
 			m_rot_.y = camera_rot.y;
 		}
@@ -449,10 +431,12 @@ Vector3 Player::EnterMove(Vector3 camera_rot)
 		move.x = -BACK_SPEED * sinf(TO_RADIAN(m_rot_.y));
 		move.z = -BACK_SPEED * cosf(TO_RADIAN(m_rot_.y));
 	}
-	//アイドル
-	else if ((!CheckHitKey(KEY_INPUT_W)) && (!CheckHitKey(KEY_INPUT_S)))
+	//止まる
+	else if ((!CheckHitKey(KEY_INPUT_W)) && (!CheckHitKey(KEY_INPUT_S)) && (!CheckHitKey(KEY_INPUT_A)) && (!CheckHitKey(KEY_INPUT_D)))
 	{
-		Enter_mov_.z = 0.0f;
+		Run = false;
+		Back = false;
+		Stand = true;
 	}
 
 	//ブリンクの中で計算が完了したものを移動量に入れる
