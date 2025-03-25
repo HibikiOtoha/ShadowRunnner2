@@ -60,10 +60,6 @@ void Player::Init(int model)
 	m_pos_.set(DefaultPos);
 	m_rot_.y = DefaultRot;
 
-	light_handle = CreatePointLightHandle(m_pos_,100,0.0f,0.002f,0.0f);
-	SetLightDifColorHandle(light_handle, GetColorF(0.05f,0.05f,0.05f,0.0f));
-	SetLightSpcColorHandle(light_handle, GetColorF(0.05f, 0.05f, 0.05f, 0.0f));
-	SetLightAmbColorHandle(light_handle, GetColorF(0.1f, 0.1f, 0.1f, 0.0f));
 
 	Tutrial_Handle = LoadSoundMem("data/Sounds/tutrial.mp3");
 	BGM_Handle = LoadSoundMem("data/Sounds/game.mp3");
@@ -101,7 +97,6 @@ void Player::Update(int ground_model,int wall_model, Vector3 cam_rot,int Sound)
 	{
 		Reset(time[1]);
 	}
-	SetLightPositionHandle(light_handle, m_pos_);
 
 	//アニメーション進行
 	AnimUpdate();

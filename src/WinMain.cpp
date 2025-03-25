@@ -59,8 +59,17 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine
 	SetUseZBuffer3D(TRUE);	// Ｚバッファを使用するかどうかを設定
 	SetWriteZBuffer3D(TRUE);	// Ｚバッファに書き込みを行うかどうかを設定
 	//ChangeLightTypeDir(VGet(0.8f, -1.2f, 1.0f));	// デフォルトライトのタイプをディレクショナルライトにする
-	ChangeLightTypeDir(VGet(1.0f, 1.0f, 0.0f));	// デフォルトライトのタイプをディレクショナルライトにする
+	int light_handle[LIGHT_NUM];
+	light_handle[0] = CreateDirLightHandle(VGet(1.0f, 1.0f, 0.0f));	// ディレクショナルライト作成
+	light_handle[1] = CreateDirLightHandle(VGet(-1.0f, 1.0f, 0.0f));	// ディレクショナルライト作成
+	light_handle[2] = CreateDirLightHandle(VGet(0.0f, 1.0f, 1.0f));	// ディレクショナルライト作成
+	light_handle[3] = CreateDirLightHandle(VGet(0.0f, 1.0f, -1.0f));	// ディレクショナルライト作成
 
+	for (int i = 0; i < LIGHT_NUM; i++) {
+		SetLightDifColorHandle(light_handle[i], GetColorF(0.25f, 0.25f, 0.25f, 0.0f));
+		SetLightSpcColorHandle(light_handle[i], GetColorF(0.25f, 0.25f, 0.25f, 0.0f));
+		SetLightAmbColorHandle(light_handle[i], GetColorF(0.1f, 0.1f, 0.1f, 0.0f));
+	}
 	GameInit();
 
 

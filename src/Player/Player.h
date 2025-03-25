@@ -135,7 +135,6 @@ private:
 	//•Ç‚ÅŽOŠpƒWƒƒƒ“ƒv‚Å‚«‚é‚©
 	bool CanAutoJump;
 
-	int light_handle;
 
 public:
 	Player();

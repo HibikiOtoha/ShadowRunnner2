@@ -70,7 +70,7 @@ void WireActions::Update(Vector3 player_pos, Vector3* Gimmick_mov,float* player_
 
 	
 
-	if (CheckOnHitPlayer(player_pos) && CheckHitKey(KEY_INPUT_E) && Usable)
+	if (CheckOnHitPlayer(player_pos) && ((GetMouseInput() & MOUSE_INPUT_LEFT) != 0) && Usable)
 	{
 		//アクションスタート
 		actionflag = true;

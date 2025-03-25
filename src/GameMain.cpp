@@ -52,7 +52,7 @@ void GameInit()
 	SetMouseDispFlag(FALSE);	//マウスカーソルの表示(全画面)
 
 	//タイトルからスタート
-	now_scene = SCENE_TITLE;
+	now_scene = SCENE_PLAY;
 }
 void GameUpdate()
 {

@@ -28,7 +28,7 @@ private:
 	// カメラ関係の定義
 #define CAMERA_ANGLE_SPEED			0.05f		// 旋回速度
 #define CAMERA_PLAYER_TARGET_HEIGHT		10.0f		// プレイヤー座標からどれだけ高い位置を注視点とするか
-#define CAMERA_PLAYER_BACKWARD_DISTANCE	-20.0f		// プレイヤーとの奥行方向の距離
+#define CAMERA_PLAYER_BACKWARD_DISTANCE	-25.0f		// プレイヤーとの奥行方向の距離
 #define CAMERA_PLAYER_RIGHT_DISTANCE	0.0f		// プレイヤーとの水平方向の距離
 #define CAMERA_COLLISION_SIZE			1.0f		// カメラの当たり判定サイズ
 	

@@ -27,6 +27,9 @@ float TO_DEGREE(float radian);
 int MyLoadGraph(const char* FileName);
 void Natura_numbers(float *num);
 
+#define LIGHT_NUM 4
+
+
 //--------------------------------------------------------------
 // ”Šw’è”
 //--------------------------------------------------------------
