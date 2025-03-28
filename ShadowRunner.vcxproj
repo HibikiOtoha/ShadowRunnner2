@@ -113,13 +113,13 @@
       <PreprocessorDefinitions>_DEBUG;_WINDOWS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
       <LanguageStandard>stdcpp20</LanguageStandard>
-      <AdditionalIncludeDirectories>dxlib;src;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>dxlib;src;../EffekseerForDXLib;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <RuntimeLibrary>MultiThreadedDebug</RuntimeLibrary>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalLibraryDirectories>dxlib;src;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>dxlib;src;../EffekseerForDXLib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
@@ -145,6 +145,7 @@
   <ItemGroup>
     <ClCompile Include="src\Anim\Animation.cpp" />
     <ClCompile Include="src\Camera\Camera.cpp" />
+    <ClCompile Include="src\Effect\Effect.cpp" />
     <ClCompile Include="src\GameMain.cpp" />
     <ClCompile Include="src\Gimmick\Base\GimmickBase.cpp" />
     <ClCompile Include="src\Gimmick\JumpBoard.cpp" />
@@ -163,6 +164,7 @@
   <ItemGroup>
     <ClInclude Include="src\Anim\Animation.h" />
     <ClInclude Include="src\Camera\Camera.h" />
+    <ClInclude Include="src\Effect\Effect.h" />
     <ClInclude Include="src\GameMain.h" />
     <ClInclude Include="src\Gimmick\Base\GimmickBase.h" />
     <ClInclude Include="src\Gimmick\JumpBoard.h" />

@@ -1,6 +1,7 @@
 #include "WinMain.h"
 #include "GameMain.h"
 #include "Dxlib.h"
+#include <EffekseerForDXLib.h>
 #include "Vector2.h"
 #include "Vector3.h"
 #include "Player/PlayerUI.h"
@@ -9,10 +10,13 @@
 #include "Player/Player.h"
 #include "Game.h"
 
+#include "Effect/Effect.h"
+
 Player player;
 Camera camera;
 Stage stage;
 PlayerUI playerui;
+Effect effect;
 
 Game::Game()
 {
@@ -21,8 +25,6 @@ Game::Game()
 	SavePoint[1] = 345.0f;
 	SavePoint[2] = 85.0f;
 	SavePoint[3] = -130.0f;
-
-
 }
 
 void Game::Init(int M_Ground,int M_Wall, int M_Sky, int M_Player)
@@ -35,6 +37,8 @@ void Game::Init(int M_Ground,int M_Wall, int M_Sky, int M_Player)
 	Scene_Change = false;
 	stage.Init(ground_model,wall_model, sky_model);
 	player.Init(player_model);
+
+	effect.Load();
 
 	for (int i = 0; i < IMAGE_MAX; i++) {
 		blur_image[i] = 0;
@@ -69,8 +73,8 @@ void Game::Update(bool tutrial_mode, int Sound,int Sens)
 		player.Update(ground_model,wall_model, camera.cam_rot_,Sound);
 	}
 	camera.Update(player.m_pos_, wall_model, Sens);
-
-
+	//エフェクトにプレイヤー座標を送りながら更新
+	effect.Update(player.m_pos_, player.ReturnWallrun());
 
 
 	//エンド画面に移動できるようにする
@@ -132,6 +136,7 @@ void Game::Render()
 
 	player.Render();
 	playerui.Draw();
+	effect.Draw();
 
 	count++;
 	if (count >= IMAGE_MAX) {

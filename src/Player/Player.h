@@ -24,7 +24,7 @@ public:
 private:
 	//初期値
 	
-	Vector3 DefaultPos{625,30,0 };
+	Vector3 DefaultPos{625,100,0 };
 
 	//test(壁ー壁ーワイヤー壁)
 	//Vector3 DefaultPos{ -155,30,0 };

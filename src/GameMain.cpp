@@ -39,8 +39,8 @@ int Sound;
 
 void GameInit()
 {
-	ground_model = MV1LoadModel("data/Stage/blender/stage_ground.mv1");
-	wall_model = MV1LoadModel("data/Stage/blender/stage_wall.mv1");
+	ground_model = MV1LoadModel("data/Stage/stage_ground.mv1");
+	wall_model = MV1LoadModel("data/Stage/stage_wall.mv1");
 	sky_model = MV1LoadModel("data/SkyBox/sky.mv1");
 	player_model = MV1LoadModel("data/Player/Bot.mv1");
 	//player_model = MV1LoadModel("data/movie/model/MovieBot.mv1");

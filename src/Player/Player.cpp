@@ -48,6 +48,14 @@ void Player::Init(int model)
 	//anim_model_[STAND] = MV1LoadModel("data/movie/model/Idle.mv1");
 	//anim_model_[RUN] = MV1LoadModel("data/movie/model/Running.mv1");
 
+	//サウンド
+	Tutrial_Handle = LoadSoundMem("data/Sounds/tutrial.mp3");
+	BGM_Handle = LoadSoundMem("data/Sounds/game.mp3");			
+	Run_Handle = LoadSoundMem("data/Sounds/Run.mp3");			
+	Wallrun_Handle = LoadSoundMem("data/Sounds/WallRun.mp3");	
+	InG_Handle = LoadSoundMem("data/Sounds/G_.mp3");			
+	Wire_Handle = LoadSoundMem("data/Sounds/Wire.mp3");			
+
 	//アニメーションをアタッチして割合を初期化
 	for (int i = 0; i < STATE_MAX; i++) {
 		anim.AnimInit(m_model_, anim_model_[i], &anim_attach_[i], &anim_total_[i], &anim_frame_[i], &anim_rate_[i]);
@@ -59,16 +67,6 @@ void Player::Init(int model)
 	//初期値を設定
 	m_pos_.set(DefaultPos);
 	m_rot_.y = DefaultRot;
-
-
-	Tutrial_Handle = LoadSoundMem("data/Sounds/tutrial.mp3");
-	BGM_Handle = LoadSoundMem("data/Sounds/game.mp3");
-	Run_Handle = LoadSoundMem("data/Sounds/Run.mp3");
-	Wallrun_Handle = LoadSoundMem("data/Sounds/WallRun.mp3");
-
-	InG_Handle = LoadSoundMem("data/Sounds/G_.mp3");
-	Wire_Handle = LoadSoundMem("data/Sounds/Wire.mp3");
-
 }
 
 void Player::Update(int ground_model,int wall_model, Vector3 cam_rot,int Sound)
@@ -225,6 +223,16 @@ void Player::Update(int ground_model,int wall_model, Vector3 cam_rot,int Sound)
 	Before2State = BeforeState;
 	BeforeState = NowState;
 
+
+
+	if (rightwallrun == false && leftwallrun == false && !OnGround && Jump_mov_.y == 0)
+	{
+		int i = 0;
+	}
+	if (rightwallrun == true && leftwallrun == true && !OnGround && Jump_mov_.y == 0)
+	{
+		int i = 0;
+	}
 
 	//	当たり判定の情報の更新を行う
 	MV1RefreshCollInfo(m_model_);
@@ -650,7 +658,7 @@ void Player::Wall_Rubbing(int loop_num, MV1_COLL_RESULT_POLY_DIM hit_info, Vecto
 		if (mov_dot < 0)
 		{
 			//壁走りせずその場で(壁への入射角が浅かったらその場で自動壁ジャンプ)
-			if ((mov_dot >= -1.0f && mov_dot <= -0.7f) && !OnGround && !leftwallrun && !rightwallrun && (BeforeState != WALLRUN && Before2State != WALLRUN) && CanAutoJump == true)
+			if ((mov_dot >= -1.0f && mov_dot <= -0.9f) && !OnGround && !leftwallrun && !rightwallrun && (BeforeState != WALLRUN && Before2State != WALLRUN) && CanAutoJump == true)
 			{
 				//切り替え始めの時
 				if (autojump_mov.x == 0 && autojump_mov.z == 0) {
@@ -714,31 +722,40 @@ void Player::CheckWhichWall(int stage_model)
 	//右か左どちらに壁があるか
 	if ((wallhit_info[0].HitFlag || wallhit_info[1].HitFlag) && !OnGround)
 	{
+		//プラス側なら
 		if (m_pos_.x > 0) {
 			if ((m_pos_.x - wallhit_info[0].HitPosition.x) >= (m_pos_.x - wallhit_info[1].HitPosition.x))
 			{
 				rightwallrun = true;
 				leftwallrun = false;
 			}
-			else if ((m_pos_.x - wallhit_info[0].HitPosition.x) <= (m_pos_.x - wallhit_info[1].HitPosition.x))
+			else 
 			{
 				leftwallrun = true;
 				rightwallrun = false;
 			}
 		}
+		//マイナス側なら
 		else {
 			if ((m_pos_.x - wallhit_info[0].HitPosition.x) >= (m_pos_.x - wallhit_info[1].HitPosition.x))
 			{
 				leftwallrun = true;
 				rightwallrun = false;
 			}
-			else if ((m_pos_.x - wallhit_info[0].HitPosition.x) <= (m_pos_.x - wallhit_info[1].HitPosition.x))
+			else
 			{
 				rightwallrun = true;
 				leftwallrun = false;
 			}
 		}
 	}
+	else
+	{
+		rightwallrun = true;
+		leftwallrun = false;
+	}
+
+	
 }
 
 void Player::Reset(int CheckPoint)

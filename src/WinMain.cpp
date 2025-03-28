@@ -2,6 +2,7 @@
 #include "GameMain.h"
 #include "WinMain.h"
 
+#include <EffekseerForDXLib.h>
 
 char KeyBuffer[256];
 int KeyFrame[256];
@@ -39,6 +40,24 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine
 		return -1;			// エラーが起きたら直ちに終了
 	}
 
+	if (Effekseer_Init(8000) == -1)
+	{
+		DxLib_End();
+		return -1;
+	}
+	// フルスクリーンウインドウの切り替えでリソースが消えるのを防ぐ。
+	// Effekseerを使用する場合は必ず設定する。
+	SetChangeScreenModeGraphicsSystemResetFlag(FALSE);
+	// DXライブラリのデバイスロストした時のコールバックを設定する。
+	// ウインドウとフルスクリーンの切り替えが発生する場合は必ず実行する。
+	// ただし、DirectX11を使用する場合は実行する必要はない。
+	Effekseer_SetGraphicsDeviceLostCallbackFunctions();
+
+	// ネットワーク機能を有効にする。
+	// エフェクトを読み込む前に実行する。
+	Effekseer_StartNetwork(60000);
+
+
 	SetDrawScreen(DX_SCREEN_BACK);	// 描画先画面を設定
 	SetTransColor(255, 0, 255);	// 作成するグラフィックハンドルに適用する透過色を設定
 	srand(GetNowCount() % RAND_MAX);
@@ -58,7 +77,6 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine
 
 	SetUseZBuffer3D(TRUE);	// Ｚバッファを使用するかどうかを設定
 	SetWriteZBuffer3D(TRUE);	// Ｚバッファに書き込みを行うかどうかを設定
-	//ChangeLightTypeDir(VGet(0.8f, -1.2f, 1.0f));	// デフォルトライトのタイプをディレクショナルライトにする
 	int light_handle[LIGHT_NUM];
 	light_handle[0] = CreateDirLightHandle(VGet(1.0f, 1.0f, 0.0f));	// ディレクショナルライト作成
 	light_handle[1] = CreateDirLightHandle(VGet(-1.0f, 1.0f, 0.0f));	// ディレクショナルライト作成
@@ -111,6 +129,9 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine
 
 	}
 	GameExit();
+
+	// Effekseerを終了する。
+	Effkseer_End();
 
 	DxLib_End();				// ＤＸライブラリ使用の終了処理
 

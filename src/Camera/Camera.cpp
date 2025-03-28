@@ -7,6 +7,7 @@
 #include "Vector2.h"
 #include "Vector3.h"
 #include "Camera.h"
+#include <EffekseerForDXLib.h>
 
 #include <algorithm>
 
@@ -30,6 +31,9 @@ Camera::Camera()
 
 void Camera::Update(Vector3 player_pos,  int stage_model,int Sens)
 {
+	// DXライブラリのカメラとEffekseerのカメラを同期する。
+	Effekseer_Sync3DSetting();
+
 		player_pos_ = player_pos;
 		stage_model_ = stage_model;
 
@@ -37,6 +41,8 @@ void Camera::Update(Vector3 player_pos,  int stage_model,int Sens)
 
 		Input_Process();
 		Camera_Process();
+
+	
 }
 
 void Camera::Render()
